@@ -7,4 +7,4 @@ metadata:
 spec:
   type: website
   lifecycle: experimental
-  owner: usama.shafique@pwr.team
+  owner: usama.shafique@pwr.team  # Add the owner information here

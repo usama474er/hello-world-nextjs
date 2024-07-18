@@ -3,7 +3,7 @@ kind: Component
 metadata:
   name: hello-world-nextjs
   annotations:
-    github.com/project-slug: usama474er/hello-world-nextjs
+    github.com/project-slug: https://github.com/usama474er/hello-world-nextjs/tree/main/hello-world
 spec:
   type: website
   lifecycle: experimental

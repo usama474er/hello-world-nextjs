@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hello-world-nextjs
+  annotations:
+    github.com/project-slug: usama474er/hello-world-nextjs
+spec:
+  type: other
+  lifecycle: unknown

@@ -1,0 +1,59 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: nextjs-hello-world
+  title: Next.js Hello World App
+  description: A simple Next.js Hello World application
+  tags:
+    - nextjs
+    - hello-world
+spec:
+  owner: PWR-team
+  type: service
+
+  steps:
+    - id: fetch
+      name: Fetch the repository
+      action: fetch:template
+      input:
+        url: '{{ parameters.repoUrl }}'
+        values:
+          name: hello-world
+
+    - id: build
+      name: Build the application
+      action: shell:script
+      input:
+        script: |
+          cd hello-world
+          npm install
+          npm run build
+          npm run export
+
+    - id: deploy
+      name: Deploy to DigitalOcean Droplet
+      action: shell:script
+      input:
+        script: |
+          ssh -o StrictHostKeyChecking=no root@{{ parameters.dropletIp }} << 'EOF'
+            cd /var/www/html
+            rm -rf hello-world
+            mkdir hello-world
+            cd hello-world
+            git clone {{ parameters.repoUrl }} .
+            npm install
+            npm run build
+            npm run start
+          EOF
+
+  parameters:
+    - title: Repository URL
+      type: string
+      required: true
+      description: The URL of the repository to clone
+      name: https://github.com/usama474er/hello-world-nextjs/tree/main/hello-world
+    - title: Droplet IP
+      type: string
+      required: true
+      description: The IP address of your DigitalOcean droplet
+      name: 
